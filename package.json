@@ -1,6 +1,6 @@
 {
   "name": "typograms",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A lightweight image format (text/typogram) useful for drawing simple ASCII diagrams in technical documentation",
   "license": "Apache-2.0",
   "type": "module",
@@ -9,8 +9,10 @@
   },
   "main": "./dist/typograms.mjs",
   "module": "./dist/typograms.mjs",
+  "types": "./dist/typograms.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/typograms.d.ts",
       "import": "./dist/typograms.mjs",
       "default": "./dist/typograms.mjs"
     }

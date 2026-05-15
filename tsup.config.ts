@@ -15,6 +15,7 @@ export default defineConfig([
     outDir: "dist",
     outExtension: () => ({ js: ".mjs" }),
     banner: { js: banner },
+    dts: true,
     minify: true,
     sourcemap: false,
     clean: true,
