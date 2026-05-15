@@ -6,3 +6,6 @@ Gemfile.lock
 .jekyll-metadata
 node_modules/
 package-lock.json
+
+# Fork-private planning notes — kept local, not part of the repo history.
+planning/
