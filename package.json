@@ -50,6 +50,8 @@
   "homepage": "https://github.com/google/typograms#readme",
   "devDependencies": {
     "@eslint/js": "^9.18.0",
+    "@types/jsdom": "^28.0.3",
+    "@types/node": "^25.8.0",
     "eslint": "^9.18.0",
     "globals": "^15.14.0",
     "jsdom": "^28.1.0",

@@ -8,11 +8,63 @@
  * Licensed under the Apache License, Version 2.0.
  * See LICENSE and NOTICE at the repository root.
  */
-// @ts-nocheck
 
-const ratio = 2;
+// The renderer pipes numeric coordinates and boolean flags through
+// Element.setAttribute, relying on the DOM's implicit String() coercion. The
+// strict lib.dom signature accepts only strings, so widen it here rather than
+// wrap every one of ~200 call sites in String(...).
+declare global {
+  interface Element {
+    setAttribute(qualifiedName: string, value: string | number | boolean): void;
+  }
+}
 
-function grid(width, height) {
+/**
+ * Eight neighboring characters around a grid cell, in fixed clockwise-from-top
+ * order with the four corners trailing. Each entry is exactly one character or
+ * a single space when the neighbor is out-of-grid.
+ */
+export type Neighbors = readonly [
+  top: string,
+  right: string,
+  bottom: string,
+  left: string,
+  topRight: string,
+  bottomRight: string,
+  bottomLeft: string,
+  topLeft: string,
+];
+
+/**
+ * Eight booleans toggling each of `cross()`'s line segments, in the same order
+ * as `Neighbors`.
+ */
+type CrossArgs = readonly [
+  top: boolean,
+  right: boolean,
+  bottom: boolean,
+  left: boolean,
+  topRight: boolean,
+  bottomRight: boolean,
+  bottomLeft: boolean,
+  topLeft: boolean,
+];
+
+export type GlyphHandler = (neighbors: Neighbors) => SVGGElement;
+type GlyphTable = Record<string, GlyphHandler>;
+type AliasTable = Record<string, string>;
+type Diagram = string[][];
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+const emptyGroup = (): SVGGElement => document.createElementNS(SVG_NS, "g");
+
+function callGlyph(key: string, neighbors: Neighbors): SVGGElement {
+  const handler = glyphs[key];
+  return handler ? handler(neighbors) : emptyGroup();
+}
+
+function grid(width: number, height: number): SVGGElement {
   const result = document.createElementNS(
       "http://www.w3.org/2000/svg", "g");
 
@@ -59,7 +111,7 @@ function grid(width, height) {
   return result;
 }
 
-const glyphs = {};
+const glyphs: GlyphTable = {};
 
 glyphs["|"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft]) => {
   const result = document.createElementNS(
@@ -149,7 +201,7 @@ glyphs["~"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
 }
 
 glyphs["_"] = (around) => {
-  const line = glyphs["-"](around);
+  const line = callGlyph("-", around);
   line.setAttribute("transform", "translate(0 24)");
   return line;
 }
@@ -189,7 +241,7 @@ glyphs[":"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
   return result;
 }
 
-glyphs["="] = (around) => {
+glyphs["="] = (_around) => {
   const result = document.createElementNS(
       "http://www.w3.org/2000/svg", "g");
   const first = document.createElementNS(
@@ -323,7 +375,7 @@ glyphs["/"] = (around) => {
   }
 
   if (right == "_") {
-    const line = glyphs["_"](around);
+    const line = callGlyph("_", around);
     result.appendChild(line);
   }
 
@@ -376,7 +428,7 @@ glyphs["\\"] = (around) => {
   }
 
   if (left == "_") {
-    const line = glyphs["_"](around);
+    const line = callGlyph("_", around);
     result.appendChild(line);
   }
 
@@ -924,7 +976,7 @@ glyphs["."] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
   return result;
 }
 
-const alias = {
+const alias: AliasTable = {
   "┌": "+",
   "┐": "+",
   "└": "+",
@@ -938,16 +990,18 @@ const alias = {
 
 for (const [key, value] of Object.entries(alias)) {
   glyphs[key] = (around) => {
-    return glyphs[value](around);
-  }  
+    const target = glyphs[value];
+    if (!target) {
+      return document.createElementNS(SVG_NS, "g");
+    }
+    return target(around);
+  }
 }
 
 
-glyphs[">"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft]) => {
-  const result = document.createElementNS(
-      "http://www.w3.org/2000/svg", "g");
-  const arrow = document.createElementNS(
-    "http://www.w3.org/2000/svg", "polygon");
+glyphs[">"] = ([, right]) => {
+  const result = document.createElementNS(SVG_NS, "g");
+  const arrow = document.createElementNS(SVG_NS, "polygon");
   arrow.setAttribute("points", "0,0 42,18 0,36");
   let reach = 0;
   if (right == "*" || right == "o" || right == "#") {
@@ -956,29 +1010,11 @@ glyphs[">"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
   arrow.setAttribute("transform", `translate(${reach} 9)`);
   result.appendChild(arrow);
   return result;
-  const center = document.createElementNS(
-    "http://www.w3.org/2000/svg", "polygon");
-  center.setAttribute("points", "-3,0 6,0 6,6 -3,6");
-  center.setAttribute("transform", "translate(15 24)");
-  result.appendChild(center);
-  result.appendChild(cross([
-    false, // top
-    false, // right
-    false, // bottom
-    ["-", "+"].includes(left), // left
-    false, // topRight
-    false, // bottomRight
-    ["/"].includes(bottomLeft), // bottomLeft
-    ["\\"].includes(topLeft) // topLeft
-    ]));
-  return result;
 }
 
-glyphs["<"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft]) => {
-  const result = document.createElementNS(
-      "http://www.w3.org/2000/svg", "g");
-  const arrow = document.createElementNS(
-    "http://www.w3.org/2000/svg", "polygon");
+glyphs["<"] = ([, , , left]) => {
+  const result = document.createElementNS(SVG_NS, "g");
+  const arrow = document.createElementNS(SVG_NS, "polygon");
   arrow.setAttribute("points", "0,0 42,18 0,36");
   let reach = 30;
   if (left == "*" || left == "o" || left == "#") {
@@ -986,22 +1022,6 @@ glyphs["<"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
   }
   arrow.setAttribute("transform", `translate(${reach} 9) translate(0 36) rotate(180)`);
   result.appendChild(arrow);
-  return result;
-  //const center = document.createElementNS(
-  //  "http://www.w3.org/2000/svg", "polygon");
-  //center.setAttribute("points", "0,0 9,0 9,6 0,6");
-  //center.setAttribute("transform", "translate(9 24)");
-  //result.appendChild(center);
-  result.appendChild(cross([
-    false, // top
-    ["-", "+"].includes(right), // right
-    false, // bottom
-    false, // left
-    ["/"].includes(topRight), // topRight
-    ["\\"].includes(bottomRight), // bottomRight
-    false, // bottomLeft
-    false // topLeft
-    ]));
   return result;
 }
 
@@ -1072,7 +1092,7 @@ glyphs["^"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
 }
 
 
-function cross([top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft]) {
+function cross([top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft]: CrossArgs): SVGGElement {
   const result = document.createElementNS(
       "http://www.w3.org/2000/svg", "g");
   if (top) {
@@ -1192,7 +1212,7 @@ function cross([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
   return result;
 }
 
-function text(char, reserved) {
+function text(char: string, reserved: boolean): SVGGElement {
   const g = document.createElementNS(
       "http://www.w3.org/2000/svg", "g");
   const result = document.createElementNS(
@@ -1213,26 +1233,26 @@ function text(char, reserved) {
   return g;
 }
 
-function render(diagram) {
-  const result = document.createElementNS(
-    "http://www.w3.org/2000/svg", "g");
+function render(diagram: Diagram): SVGGElement {
+  const result = document.createElementNS(SVG_NS, "g");
 
   for (let y = 0; y < diagram.length; y++) {
-    for (let x = 0; x < diagram[y].length; x++) {
-      const char = diagram[y][x];
+    const row = diagram[y];
+    if (!row) continue;
+    for (let x = 0; x < row.length; x++) {
+      const char = row[x];
 
-      if (char == ' ' || char == '"') {
+      if (char === undefined || char === " " || char === '"') {
         continue;
       }
 
-      let reserved = glyphs[char];
+      const handler = glyphs[char];
 
-      const g = document.createElementNS(
-        "http://www.w3.org/2000/svg", "g");
+      const g = document.createElementNS(SVG_NS, "g");
 
       let str = false;
       for (let i = 0; i < x; i++) {
-        if (diagram[y][i] == '"') {
+        if (row[i] === '"') {
           str = !str;
         }
       }
@@ -1241,27 +1261,40 @@ function render(diagram) {
 
       if (char.match(/[A-Za-z0-9]/)) {
         const [, right, , left] = neighbors;
-        // We special case "v", which is a down arrow, and also a text character.
-        str = str || (left.match(/[A-Za-uw-z0-9]/) || right.match(/[A-Za-uw-z0-9]/));
+        // Special-case "v", which is a down arrow and also a text character.
+        str = str || /[A-Za-uw-z0-9]/.test(left) || /[A-Za-uw-z0-9]/.test(right);
       }
 
-      reserved = reserved && !str;
+      const reserved = handler !== undefined && !str;
 
       if (reserved) {
-        g.appendChild(glyphs[char](neighbors));
+        g.appendChild(handler(neighbors));
       }
 
       g.appendChild(text(char, reserved));
 
-      g.setAttribute("transform", `translate(${x*30} ${y*54})`);
+      g.setAttribute("transform", `translate(${x * 30} ${y * 54})`);
       result.appendChild(g);
     }
   }
   return result;
 }
 
-function create(source, zoom, debug) {
-  const diagram = source
+/**
+ * Render a typogram source string to an SVG element.
+ *
+ * The first and last lines of `source` are dropped before rendering, matching
+ * the upstream convention that lets authors leading-newline-pad their
+ * `<script type="text/typogram">` blocks without affecting layout.
+ *
+ * @param source Multi-line ASCII-art diagram.
+ * @param zoom Output scale multiplier; the IIFE bootstrap defaults this to 0.3.
+ * @param debug When true, overlays the alignment grid and surfaces reserved
+ *   characters in semi-transparent black.
+ * @returns A detached `<svg>` element. Append it to a DOM target to display.
+ */
+function create(source: string, zoom: number, debug: boolean): SVGElement {
+  const diagram: Diagram = source
     .split("\n")
     .map((line) => line.trimEnd().split(""));
 
@@ -1272,14 +1305,18 @@ function create(source, zoom, debug) {
   const height = diagram.length;
 
   for (let y = 0; y < diagram.length; y++) {
-    for (let x = 0; x < diagram[y].length; x++) {
-      if (diagram[y].length > width) {
-        width = diagram[x].length;
+    const row = diagram[y];
+    if (!row) continue;
+    for (let x = 0; x < row.length; x++) {
+      if (row.length > width) {
+        // Upstream parity quirk: indexes by x rather than y. Preserved
+        // because the snapshot fixtures encode the resulting widths.
+        width = diagram[x]?.length ?? width;
       }
     }
   }
 
-  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const svg = document.createElementNS(SVG_NS, "svg");
   svg.setAttribute("width", width * 30 * zoom);
   svg.setAttribute("height", height * 54 * zoom);
   svg.setAttribute("debug", debug);
@@ -1288,7 +1325,7 @@ function create(source, zoom, debug) {
   svg.setAttribute("viewBox", `${-padding} ${-padding} ${width * 30 + 2 * padding} ${height * 54 + 2 * padding}`);
   svg.setAttribute("class", "debug");
 
-  var style = document.createElementNS("http://www.w3.org/2000/svg", "style");
+  const style = document.createElementNS(SVG_NS, "style");
   style.innerHTML = `
 .diagram {
   display: block;
@@ -1429,7 +1466,10 @@ text::selection {
   return svg;
 }
 
-function around(diagram, [x, y]) {
+function around(
+  diagram: Diagram,
+  [x, y]: readonly [number, number],
+): Neighbors {
   let left = " ";
   let top = " ";
   let right = " ";
@@ -1438,41 +1478,34 @@ function around(diagram, [x, y]) {
   let bottomRight = " ";
   let bottomLeft = " ";
   let topLeft = " ";
-  if (y > 0) {
-    top = diagram[y - 1][x] || " ";
+  const row = diagram[y];
+  const rowAbove = y > 0 ? diagram[y - 1] : undefined;
+  const rowBelow = y < diagram.length - 1 ? diagram[y + 1] : undefined;
+  if (rowAbove) {
+    top = rowAbove[x] || " ";
   }
-  if (x < (diagram[y].length - 1)) {
-    right = diagram[y][x + 1] || " ";
+  if (row && x < row.length - 1) {
+    right = row[x + 1] || " ";
   }
-  if (y < (diagram.length - 1)) {
-    bottom = diagram[y + 1][x] || " ";
+  if (rowBelow) {
+    bottom = rowBelow[x] || " ";
   }
-  if (x > 0) {
-    left = diagram[y][x - 1] || " ";
+  if (row && x > 0) {
+    left = row[x - 1] || " ";
   }
-  if (y > 0 && x < (diagram[y - 1].length - 1)) {
-    // console.log(`@${diagram[y][x]}: ${diagram[y - 1][x + 1]}`);
-    topRight = diagram[y - 1][x + 1] || " ";
+  if (rowAbove && x < rowAbove.length - 1) {
+    topRight = rowAbove[x + 1] || " ";
   }
-  //if (diagram[y][x] == ".") {
-    //console.log(`${diagram[y][x]}}: ${(y + 1) < (diagram.length)}`);
-    //console.log(diagram[y + 1]);
-    //throw new Error("hi");
-  //}
-  if ((y + 1) < diagram.length && (x < diagram[y + 1].length)) {
-    bottomRight = diagram[y + 1][x + 1] || " ";
-    //console.log(diagram[y + 1]);
-    //console.log(`${diagram[y][x]}: ${x} ${y} ${bottomRight}`);
-    //throw new Error("hi");
+  if (rowBelow && x < rowBelow.length) {
+    bottomRight = rowBelow[x + 1] || " ";
   }
-  if (y < (diagram.length - 1) && x > 0) {
-    bottomLeft = diagram[y + 1][x - 1] || " ";
+  if (rowBelow && x > 0) {
+    bottomLeft = rowBelow[x - 1] || " ";
   }
-  if (y > 0 && x > 0) {
-    topLeft = diagram[y - 1][x - 1] || " ";
+  if (rowAbove && x > 0) {
+    topLeft = rowAbove[x - 1] || " ";
   }
   return [top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft];
-  //.map((el) => alias[el] ? alias[el] : el);
 }
 
 export default create;

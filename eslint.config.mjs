@@ -14,18 +14,13 @@ export default tseslint.config(
     },
     rules: {
       "no-unused-vars": "off",
+      // Glyph handlers all share an 8-tuple Neighbors signature for the
+      // GlyphTable lookup, even when a given handler ignores most of the
+      // neighbors. Don't flag those positional destructures.
       "@typescript-eslint/no-unused-vars": [
         "warn",
-        { argsIgnorePattern: "^_" },
+        { argsIgnorePattern: "^_", destructuredArrayIgnorePattern: ".*" },
       ],
-      // Demoted during the rename pivot: src/ files carry @ts-nocheck and
-      // upstream-as-shipped require/var/dead-branch shapes. The typing pass
-      // (Commit 3) removes the pragmas and re-promotes these rules.
-      "@typescript-eslint/ban-ts-comment": ["error", { "ts-nocheck": false }],
-      "@typescript-eslint/no-require-imports": "warn",
-      "no-var": "warn",
-      "no-unreachable": "warn",
-      "no-empty": "warn",
     },
   },
   {
@@ -39,12 +34,8 @@ export default tseslint.config(
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
-        { argsIgnorePattern: "^_" },
+        { argsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_|^$" },
       ],
-      "@typescript-eslint/ban-ts-comment": ["error", { "ts-nocheck": false }],
-      // Demoted to match the src/ policy: upstream test code has an empty
-      // for-loop body. The typing pass deletes it.
-      "no-empty": "warn",
     },
   },
   {

@@ -1,10 +1,13 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import { describe, it } from "vitest";
 
 describe("typograms", () => {
   class Grid {
-    constructor(str) {
+    rows: string[];
+    width: number;
+    height: number;
+
+    constructor(str: string) {
       this.rows = str.split("\n");
       this.width = 0;
       for (const row of this.rows) {
@@ -12,22 +15,22 @@ describe("typograms", () => {
       }
       this.height = this.rows.length;
     }
-    size() {
+    size(): [number, number] {
       return [this.width, this.height];
     }
-    get(x, y) {
+    get(x: number, y: number): string | undefined {
       if (x < 0 || x >= this.width) {
         return undefined;
       } else if (y < 0 || y >= this.height) {
         return undefined;
-      } else if (x < this.rows[y].length) {
-        return this.rows[y][x];
+      } else if (x < (this.rows[y]?.length ?? 0)) {
+        return this.rows[y]?.[x];
       } else {
         return ' ';
       }
     }
 
-    subgrid(x, y) {
+    subgrid(x: number, y: number): string[][] | undefined {
       const center = this.get(x, y);
       if (!center) {
         return undefined;
@@ -39,19 +42,20 @@ describe("typograms", () => {
       ];
     }
 
-    paint(x, y) {
-      const commands = [];
+    paint(x: number, y: number): string[] {
+      const commands: string[] = [];
       const subgrid = this.subgrid(x, y);
+      if (!subgrid) return commands;
 
-      const center = subgrid[1][1];
-      const left = subgrid[1][0];
-      const right = subgrid[1][2];
-      const top = subgrid[0][1];
-      const top_right = subgrid[0][2];
-      const top_left = subgrid[0][0];
-      const bottom = subgrid[2][1];
-      const bottom_right = subgrid[2][2];
-      const bottom_left = subgrid[2][0];
+      const center = subgrid[1]![1]!;
+      const left = subgrid[1]![0]!;
+      const right = subgrid[1]![2]!;
+      const top = subgrid[0]![1]!;
+      const top_right = subgrid[0]![2]!;
+      const top_left = subgrid[0]![0]!;
+      const bottom = subgrid[2]![1]!;
+      const bottom_right = subgrid[2]![2]!;
+      const bottom_left = subgrid[2]![0]!;
       
       const primitives = [
         // endings
@@ -92,7 +96,7 @@ describe("typograms", () => {
         if (bottom_left == "/") {
           commands.push("/b");
         }
-      } else if (subgrid[1][1] == ".") {
+      } else if (subgrid[1]![1] == ".") {
         // top-left rounded corner
         if (right == "-" && bottom == "|") {
           commands.push("╭");
@@ -126,13 +130,11 @@ describe("typograms", () => {
       return commands;
     }
     
-    go() {
-      const result = [];
+    go(): string[][] {
+      const result: string[][] = [];
       for (let y = 0; y < this.height; y++) {
-        const row = [];
+        const row: string[] = [];
         result.push(row);
-        for (let x = 0; x < this.rows[y].length; x++) {
-        }
       }
       return result;
     }
@@ -880,9 +882,9 @@ describe("typograms", () => {
   });
 
 
-  function assertThat(a) {
+  function assertThat(a: unknown) {
     return {
-      equalsTo(b) {
+      equalsTo(b: unknown) {
         assert.deepEqual(a, b);
       }
     }

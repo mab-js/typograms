@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { describe, it, expect } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
@@ -8,7 +7,12 @@ import { renderFixture } from "./render.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.resolve(__dirname, "..", "fixtures");
 
-function listFixtures() {
+interface FixtureMeta {
+  zoom: number;
+  debug: boolean;
+}
+
+function listFixtures(): string[] {
   if (!fs.existsSync(FIXTURES_DIR)) return [];
   return fs
     .readdirSync(FIXTURES_DIR, { withFileTypes: true })
@@ -33,7 +37,7 @@ describe("parity (upstream snapshot)", () => {
     it(name, () => {
       const dir = path.join(FIXTURES_DIR, name);
       const source = fs.readFileSync(path.join(dir, "source.txt"), "utf8");
-      const meta = JSON.parse(fs.readFileSync(path.join(dir, "meta.json"), "utf8"));
+      const meta: FixtureMeta = JSON.parse(fs.readFileSync(path.join(dir, "meta.json"), "utf8"));
       const expected = fs.readFileSync(path.join(dir, "expected.svg"), "utf8");
 
       const actual = renderFixture({
