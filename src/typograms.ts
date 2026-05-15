@@ -19,21 +19,9 @@ declare global {
   }
 }
 
-/**
- * Eight neighboring characters around a grid cell, in fixed clockwise-from-top
- * order with the four corners trailing. Each entry is exactly one character or
- * a single space when the neighbor is out-of-grid.
- */
-export type Neighbors = readonly [
-  top: string,
-  right: string,
-  bottom: string,
-  left: string,
-  topRight: string,
-  bottomRight: string,
-  bottomLeft: string,
-  topLeft: string,
-];
+import { around, type Diagram, type Neighbors } from "./grid.js";
+
+export type { Neighbors } from "./grid.js";
 
 /**
  * Eight booleans toggling each of `cross()`'s line segments, in the same order
@@ -53,7 +41,6 @@ type CrossArgs = readonly [
 export type GlyphHandler = (neighbors: Neighbors) => SVGGElement;
 type GlyphTable = Record<string, GlyphHandler>;
 type AliasTable = Record<string, string>;
-type Diagram = string[][];
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -1464,48 +1451,6 @@ text::selection {
   }
 
   return svg;
-}
-
-function around(
-  diagram: Diagram,
-  [x, y]: readonly [number, number],
-): Neighbors {
-  let left = " ";
-  let top = " ";
-  let right = " ";
-  let bottom = " ";
-  let topRight = " ";
-  let bottomRight = " ";
-  let bottomLeft = " ";
-  let topLeft = " ";
-  const row = diagram[y];
-  const rowAbove = y > 0 ? diagram[y - 1] : undefined;
-  const rowBelow = y < diagram.length - 1 ? diagram[y + 1] : undefined;
-  if (rowAbove) {
-    top = rowAbove[x] || " ";
-  }
-  if (row && x < row.length - 1) {
-    right = row[x + 1] || " ";
-  }
-  if (rowBelow) {
-    bottom = rowBelow[x] || " ";
-  }
-  if (row && x > 0) {
-    left = row[x - 1] || " ";
-  }
-  if (rowAbove && x < rowAbove.length - 1) {
-    topRight = rowAbove[x + 1] || " ";
-  }
-  if (rowBelow && x < rowBelow.length) {
-    bottomRight = rowBelow[x + 1] || " ";
-  }
-  if (rowBelow && x > 0) {
-    bottomLeft = rowBelow[x - 1] || " ";
-  }
-  if (rowAbove && x > 0) {
-    topLeft = rowAbove[x - 1] || " ";
-  }
-  return [top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft];
 }
 
 export default create;
