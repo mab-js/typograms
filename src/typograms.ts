@@ -20,82 +20,25 @@ declare global {
 }
 
 import { around, type Diagram, type Neighbors } from "./grid.js";
+import {
+  CELL_H,
+  CELL_W,
+  SVG_NS,
+  cross,
+  debugGrid,
+  emptyGroup,
+  text,
+} from "./primitives.js";
 
 export type { Neighbors } from "./grid.js";
-
-/**
- * Eight booleans toggling each of `cross()`'s line segments, in the same order
- * as `Neighbors`.
- */
-type CrossArgs = readonly [
-  top: boolean,
-  right: boolean,
-  bottom: boolean,
-  left: boolean,
-  topRight: boolean,
-  bottomRight: boolean,
-  bottomLeft: boolean,
-  topLeft: boolean,
-];
 
 export type GlyphHandler = (neighbors: Neighbors) => SVGGElement;
 type GlyphTable = Record<string, GlyphHandler>;
 type AliasTable = Record<string, string>;
 
-const SVG_NS = "http://www.w3.org/2000/svg";
-
-const emptyGroup = (): SVGGElement => document.createElementNS(SVG_NS, "g");
-
 function callGlyph(key: string, neighbors: Neighbors): SVGGElement {
   const handler = glyphs[key];
   return handler ? handler(neighbors) : emptyGroup();
-}
-
-function grid(width: number, height: number): SVGGElement {
-  const result = document.createElementNS(
-      "http://www.w3.org/2000/svg", "g");
-
-  const vertical = document.createElementNS(
-        "http://www.w3.org/2000/svg", "line");
-  vertical.setAttribute("x1", 15);
-  vertical.setAttribute("y1", 0);
-  vertical.setAttribute("x2", 15);
-  vertical.setAttribute("y2", 54);
-  vertical.setAttribute("class", "center");
-  //result.appendChild(vertical);
-
-  const horizontal = document.createElementNS(
-        "http://www.w3.org/2000/svg", "line");
-  horizontal.setAttribute("x1", 0);
-  horizontal.setAttribute("y1", 30);
-  horizontal.setAttribute("x2", 30);
-  horizontal.setAttribute("y2", 54);
-  horizontal.setAttribute("class", "center");  
-  //result.appendChild(horizontal);
-
-  for (let i = 0; i <= width * 30; i+= 3) {
-    const line = document.createElementNS(
-        "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", i);
-    line.setAttribute("y1", 0);
-    line.setAttribute("x2", i);
-    line.setAttribute("y2", 54 * height);
-    line.setAttribute("class", "grid");
-    result.appendChild(line);
-  }
-
-  for (let i = 0; i <= height * 54; i+= 3) {
-    const line = document.createElementNS(
-        "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 0);
-    line.setAttribute("y1", i);
-    line.setAttribute("x2", 30 * width);
-    line.setAttribute("y2", i);
-    line.setAttribute("class", "grid");
-    result.appendChild(line);
-  }
-
-  return result;
 }
 
 const glyphs: GlyphTable = {};
@@ -1079,147 +1022,6 @@ glyphs["^"] = ([top, right, bottom, left, topRight, bottomRight, bottomLeft, top
 }
 
 
-function cross([top, right, bottom, left, topRight, bottomRight, bottomLeft, topLeft]: CrossArgs): SVGGElement {
-  const result = document.createElementNS(
-      "http://www.w3.org/2000/svg", "g");
-  if (top) {
-  // {
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 15);
-    line.setAttribute("y1", 0);
-    line.setAttribute("x2", 15);
-    line.setAttribute("y2", 27);
-    line.setAttribute("class", "part");    
-    result.appendChild(line);
-  }
-
-  if (right) {
-  //{
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 15);
-    line.setAttribute("y1", 27);
-    line.setAttribute("x2", 30);
-    line.setAttribute("y2", 27);
-    line.setAttribute("class", "part");    
-    result.appendChild(line);
-  }
-
-  if (bottom) {
-  //{
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 15);
-    line.setAttribute("y1", 27);
-    line.setAttribute("x2", 15);
-    line.setAttribute("y2", 54);
-    line.setAttribute("class", "part");    
-    result.appendChild(line);
-  }
-
-  if (left) {
-  //{
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 0);
-    line.setAttribute("y1", 27);
-    line.setAttribute("x2", 15);
-    line.setAttribute("y2", 27);
-    line.setAttribute("class", "part");    
-    result.appendChild(line);
-  }
-
-  const diagonal = document.createElementNS(
-      "http://www.w3.org/2000/svg", "polygon");
-  
-  diagonal.setAttribute("points", [
-    [0, 0],
-    [20.6, 0],
-    [20.6, 3],
-    [0, 3],
-  ].map(([x, y]) => `${x},${y}`).join(" "));
-
-  if (topRight) {
-  //{
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 30);
-    line.setAttribute("y1", 0);
-    line.setAttribute("x2", 15);
-    line.setAttribute("y2", 27);
-    line.setAttribute("class", "part");
-    // line.setAttribute("transform", "scale(1, 1)");
-    // line.setAttribute("clip-path", "polygon(-6 -6, 15 -6, 15 30, -6 30)");
-    // line.setAttribute("stroke-linecap", "square !important");
-    result.appendChild(line);
-    //const mask = document.createElementNS(
-    //  "http://www.w3.org/2000/svg", "polygon");
-    //mask.setAttribute("points", "0 0, 15 0, 15 18, 0 18");
-    //result.appendChild(mask);
-    //console.log("hi");
-  }
-
-  if (bottomRight) {
-  //{
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 15);
-    line.setAttribute("y1", 27);
-    line.setAttribute("x2", 30);
-    line.setAttribute("y2", 54);
-    line.setAttribute("class", "part");    
-    result.appendChild(line);
-  }
-
-  if (bottomLeft) {
-  // {
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 15);
-    line.setAttribute("y1", 27);
-    line.setAttribute("x2", 0);
-    line.setAttribute("y2", 54);
-    line.setAttribute("class", "part");    
-    result.appendChild(line);
-  }
-
-  if (topLeft) {
-  //{
-    const line = document.createElementNS(
-      "http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", 0);
-    line.setAttribute("y1", 0);
-    line.setAttribute("x2", 15);
-    line.setAttribute("y2", 27);
-    line.setAttribute("class", "part");    
-    result.appendChild(line);
-  }
-
-  return result;
-}
-
-function text(char: string, reserved: boolean): SVGGElement {
-  const g = document.createElementNS(
-      "http://www.w3.org/2000/svg", "g");
-  const result = document.createElementNS(
-    "http://www.w3.org/2000/svg", "text");
-  //result.setAttribute("xml:space", "preserve");
-  //result.setAttributeNS("http://www.w3.org/XML/1998/namespace", "xml:space", "preserve");
-  const value = document.createTextNode(char);
-  result.appendChild(value);
-  if (reserved) {
-    result.setAttribute("class", "reserved");
-  }
-  const translation = [
-    [15, 24],
-    //[1.5, 1.5 * ratio]
-  ];
-  result.setAttribute("transform", translation.map(([x, y]) => `translate(${x}, ${y})`).join(" "));
-  g.appendChild(result);
-  return g;
-}
-
 function render(diagram: Diagram): SVGGElement {
   const result = document.createElementNS(SVG_NS, "g");
 
@@ -1260,7 +1062,7 @@ function render(diagram: Diagram): SVGGElement {
 
       g.appendChild(text(char, reserved));
 
-      g.setAttribute("transform", `translate(${x * 30} ${y * 54})`);
+      g.setAttribute("transform", `translate(${x * CELL_W} ${y * CELL_H})`);
       result.appendChild(g);
     }
   }
@@ -1304,12 +1106,12 @@ function create(source: string, zoom: number, debug: boolean): SVGElement {
   }
 
   const svg = document.createElementNS(SVG_NS, "svg");
-  svg.setAttribute("width", width * 30 * zoom);
-  svg.setAttribute("height", height * 54 * zoom);
+  svg.setAttribute("width", width * CELL_W * zoom);
+  svg.setAttribute("height", height * CELL_H * zoom);
   svg.setAttribute("debug", debug);
   const padding = 0;
 
-  svg.setAttribute("viewBox", `${-padding} ${-padding} ${width * 30 + 2 * padding} ${height * 54 + 2 * padding}`);
+  svg.setAttribute("viewBox", `${-padding} ${-padding} ${width * CELL_W + 2 * padding} ${height * CELL_H + 2 * padding}`);
   svg.setAttribute("class", "debug");
 
   const style = document.createElementNS(SVG_NS, "style");
@@ -1447,7 +1249,7 @@ text::selection {
   svg.appendChild(render(diagram));
 
   if (debug) {
-    svg.appendChild(grid(width, height));
+    svg.appendChild(debugGrid(width, height));
   }
 
   return svg;
