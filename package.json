@@ -1,14 +1,34 @@
 {
   "name": "typograms",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A lightweight image format (text/typogram) useful for drawing simple ASCII diagrams in technical documentation",
-  "bin": "main.js",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "./dist/typograms.mjs",
+  "module": "./dist/typograms.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/typograms.mjs",
+      "default": "./dist/typograms.mjs"
+    }
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "FORK.md"
+  ],
   "scripts": {
-    "build": "browserify -p tinyify src/browser.js -o docs/typograms.js",
-    "serve": "http-server docs",
-    "run": "npx . foobar",
-    "test": "mocha -w tests",
-    "test:parity": "mocha tests/parity/run.spec.js"
+    "build": "tsup && cp dist/typograms.iife.js docs/typograms.js",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "mocha tests",
+    "test:parity": "mocha tests/parity/run.spec.js",
+    "test:all": "npm run test && npm run test:parity"
   },
   "repository": {
     "type": "git",
@@ -22,17 +42,17 @@
     "JS"
   ],
   "author": "https://sgo.to",
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/google/typograms/issues"
   },
   "homepage": "https://github.com/google/typograms#readme",
-  "dependencies": {
-    "browserify": "^17.0.0",
-    "http-server": "^14.1.1",
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0",
     "jsdom": "^28.1.0",
     "mocha": "^10.2.0",
-    "tinyify": "^4.0.0",
-    "yargs": "^17.7.2"
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3"
   }
 }
