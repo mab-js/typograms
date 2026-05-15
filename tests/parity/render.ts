@@ -1,3 +1,4 @@
+// @ts-nocheck
 import create from "../../src/typograms.js";
 
 export function renderFixture({ source, zoom, debug }) {

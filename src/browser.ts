@@ -1,4 +1,16 @@
-const create = require("./typograms.js");
+/*
+ * typograms (mab-js fork)
+ *
+ * Copyright 2017-2025 Google LLC
+ * Modifications Copyright 2026 Matthew Burton
+ *
+ * Originally developed by Google (google/typograms, archived 2025-01-21).
+ * Licensed under the Apache License, Version 2.0.
+ * See LICENSE and NOTICE at the repository root.
+ */
+// @ts-nocheck
+
+import create from "./typograms.js";
 
 document.addEventListener("DOMContentLoaded", function() {
   // replace all of the <script type="text/typogram"> tags

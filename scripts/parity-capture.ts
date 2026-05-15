@@ -1,8 +1,12 @@
-#!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
-const { JSDOM } = require("jsdom");
-const { renderFixture } = require("../tests/parity/render");
+#!/usr/bin/env tsx
+// @ts-nocheck
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { JSDOM } from "jsdom";
+import { renderFixture } from "../tests/parity/render.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const REPO_ROOT = path.resolve(__dirname, "..");
 const SOURCES = [

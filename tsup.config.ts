@@ -10,7 +10,7 @@ const banner = `/*!
 
 export default defineConfig([
   {
-    entry: { typograms: "src/typograms.js" },
+    entry: { typograms: "src/typograms.ts" },
     format: ["esm"],
     outDir: "dist",
     outExtension: () => ({ js: ".mjs" }),
@@ -20,7 +20,7 @@ export default defineConfig([
     clean: true,
   },
   {
-    entry: { typograms: "src/browser.js" },
+    entry: { typograms: "src/browser.ts" },
     format: ["iife"],
     globalName: "typograms",
     outDir: "dist",

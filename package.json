@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A lightweight image format (text/typogram) useful for drawing simple ASCII diagrams in technical documentation",
   "license": "Apache-2.0",
+  "type": "module",
   "engines": {
     "node": ">=22"
   },
@@ -26,9 +27,10 @@
     "build": "tsup && cp dist/typograms.iife.js docs/typograms.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run tests/typograms.test.js",
-    "test:parity": "vitest run tests/parity/run.spec.js",
-    "test:all": "vitest run"
+    "test": "vitest run tests/typograms.test.ts",
+    "test:parity": "vitest run tests/parity/run.spec.ts",
+    "test:all": "vitest run",
+    "capture": "tsx scripts/parity-capture.ts"
   },
   "repository": {
     "type": "git",
@@ -52,7 +54,9 @@
     "globals": "^15.14.0",
     "jsdom": "^28.1.0",
     "tsup": "^8.3.5",
+    "tsx": "^4.22.0",
     "typescript": "^5.7.3",
+    "typescript-eslint": "^8.59.3",
     "vitest": "^4.1.6"
   }
 }

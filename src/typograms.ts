@@ -1,3 +1,14 @@
+/*
+ * typograms (mab-js fork)
+ *
+ * Copyright 2017-2025 Google LLC
+ * Modifications Copyright 2026 Matthew Burton
+ *
+ * Originally developed by Google (google/typograms, archived 2025-01-21).
+ * Licensed under the Apache License, Version 2.0.
+ * See LICENSE and NOTICE at the repository root.
+ */
+// @ts-nocheck
 
 const ratio = 2;
 
@@ -1464,5 +1475,5 @@ function around(diagram, [x, y]) {
   //.map((el) => alias[el] ? alias[el] : el);
 }
 
-module.exports = create;
+export default create;
 
