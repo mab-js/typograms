@@ -4,7 +4,7 @@ import globals from "globals";
 export default [
   js.configs.recommended,
   {
-    files: ["src/**/*.js", "tests/**/*.js", "scripts/**/*.js"],
+    files: ["src/**/*.js", "scripts/**/*.js"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "commonjs",
@@ -21,7 +21,15 @@ export default [
   {
     files: ["tests/**/*.js"],
     languageOptions: {
-      globals: { ...globals.mocha },
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: { ...globals.node, ...globals.browser },
+    },
+    rules: {
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      // Demoted to match the src/ policy: upstream test code has an empty
+      // for-loop body. Phase 3+ may rewrite; not churning now.
+      "no-empty": "warn",
     },
   },
   {

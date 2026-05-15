@@ -1,8 +1,10 @@
-const assert = require("assert");
-const fs = require("fs");
-const path = require("path");
-const { renderFixture } = require("./render");
+import { describe, it, expect } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { renderFixture } from "./render.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.resolve(__dirname, "..", "fixtures");
 
 function listFixtures() {
@@ -19,7 +21,7 @@ describe("parity (upstream snapshot)", () => {
 
   if (fixtures.length === 0) {
     it("has fixtures captured", () => {
-      assert.fail(
+      expect.fail(
         `No fixtures found under ${FIXTURES_DIR}. Run "node scripts/parity-capture.js".`
       );
     });
@@ -42,7 +44,7 @@ describe("parity (upstream snapshot)", () => {
       if (actual !== expected) {
         const actualPath = path.join(dir, "actual.svg");
         fs.writeFileSync(actualPath, actual);
-        assert.fail(
+        expect.fail(
           `Parity mismatch in fixture "${name}".\n` +
             `  expected: ${path.relative(process.cwd(), path.join(dir, "expected.svg"))}\n` +
             `  actual:   ${path.relative(process.cwd(), actualPath)}\n` +

@@ -26,9 +26,9 @@
     "build": "tsup && cp dist/typograms.iife.js docs/typograms.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "mocha tests",
-    "test:parity": "mocha tests/parity/run.spec.js",
-    "test:all": "npm run test && npm run test:parity"
+    "test": "vitest run tests/typograms.test.js",
+    "test:parity": "vitest run tests/parity/run.spec.js",
+    "test:all": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -51,8 +51,8 @@
     "eslint": "^9.18.0",
     "globals": "^15.14.0",
     "jsdom": "^28.1.0",
-    "mocha": "^10.2.0",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.6"
   }
 }
