@@ -1,0 +1,30 @@
+
+                                            .-->  Alpha
+                                           /
+                                          .---->  Initial Release
+          Planning *-------.             /         \
+                            \           /           '---> Patch 1
+      Initial research       \         /             \
+                *             \       /               '-->  Patch 2
+                 \             \     /---------> Beta
+                  \             \   /
+                   \             o o                     _______
+                    \          .---. *-----.            /       \
+                     '------>  |   |       '------o->  . Release .
+                               `---' o                  \_______/
+                               o  o o \
+                              /    \ \ \
+                          .--'      \ \ \
+                         /           \ \ '----+->  Push backs
+                        /             \ \      \
+                       /|              \ \      '----> Setbacks
+                      / |               \ \
+                     V /|                \ '-----> Reception
+                Team  / |                 \
+                     v /|                  \
+             Worklaod / .                   '-->> Career change
+                     V /
+                 PTO  /
+                     V
+                 Bug
+    

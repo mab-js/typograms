@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="477" height="16.2" debug="false" viewBox="0 0 1590 54" class="debug"><style>
+.diagram {
+  display: block;
+}
+
+.diagram line, .diagram circle, .diagram rect {
+  stroke: black;
+}
+
+.diagram line {
+  stroke-width: 2;
+}
+
+.diagram circle {
+  r: 3.5;
+}
+
+.diagram rect {
+  width: 6px;
+  height: 6px;
+}
+
+.diagram text, .glyph, .debug text {
+  /** font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; **/
+  font-family: Iosevka Fixed, monospace;
+  font-size: 3em;
+  text-anchor: middle;
+  alignment-baseline: central;
+  white-space: pre;
+}
+
+.reserved {
+  fill: transparent;
+  white-space: pre;
+}
+
+.debug[debug="true"] .reserved {
+  fill: black;
+  opacity: 0.5;
+}
+
+.debug[debug="true"] line.grid {
+  stroke: black;
+  stroke-width: 0.2;
+  stroke-linecap: butt;
+  fill: black;
+  opacity: 1%;
+}
+
+polygon {
+  stroke-width: 0;
+}
+
+.debug[debug="true"] polygon.inner {
+  fill: black;
+  stroke: black;
+  opacity: 5%;
+}
+
+polygon {
+  stroke: black;
+  /** stroke-width: 0.2; **/
+  stroke-linecap: butt;
+  fill: black;
+}
+
+.debug[debug="true"] polygon,
+.debug[debug="true"] line.grid
+{
+  opacity: 10%;
+}
+
+.debug[debug="true"] polygon,
+.debug[debug="true"] path,
+.debug[debug="true"] circle
+{
+  opacity: 50%;
+}
+
+.debug[debug="true"] polygon {
+  fill: red;
+  stroke: red;
+}
+
+/**
+circle {
+  fill: black;
+}
+**/
+
+.debug[debug="true"] circle,
+.debug[debug="true"] path
+{
+  opacity: 50%;
+  fill: red;
+}
+
+.debug[debug="true"] circle {
+  stroke: red;
+}
+
+.debug[debug="true"] .inner {
+  stroke-width: 0.2;
+}
+
+line.part {
+  stroke-width: 6;
+  stroke-linecap: butt;
+  stroke: black;
+}
+
+.debug[debug="true"] line.part {
+  opacity: 50%;
+  stroke: red;
+}
+
+.debug[debug="true"] line.center {
+  stroke-width: 3;
+  stroke-linecap: butt;
+  opacity: 10%;
+  stroke: black;
+}
+
+text::selection {
+    fill: black;
+    background-color: #EEE;
+}
+  </style><g><g transform="translate(30 0)"><g><text transform="translate(15, 24)">A</text></g></g><g transform="translate(60 0)"><g><text transform="translate(15, 24)">n</text></g></g><g transform="translate(90 0)"><g><text transform="translate(15, 24)">y</text></g></g><g transform="translate(120 0)"><g><text transform="translate(15, 24)">t</text></g></g><g transform="translate(150 0)"><g><text transform="translate(15, 24)">h</text></g></g><g transform="translate(180 0)"><g><text transform="translate(15, 24)">i</text></g></g><g transform="translate(210 0)"><g><text transform="translate(15, 24)">n</text></g></g><g transform="translate(240 0)"><g><text transform="translate(15, 24)">g</text></g></g><g transform="translate(300 0)"><g><text transform="translate(15, 24)">b</text></g></g><g transform="translate(330 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(360 0)"><g><text transform="translate(15, 24)">t</text></g></g><g transform="translate(390 0)"><g><text transform="translate(15, 24)">w</text></g></g><g transform="translate(420 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(450 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(480 0)"><g><text transform="translate(15, 24)">n</text></g></g><g transform="translate(540 0)"><g><text transform="translate(15, 24)">d</text></g></g><g transform="translate(570 0)"><g><text transform="translate(15, 24)">o</text></g></g><g transform="translate(600 0)"><g><text transform="translate(15, 24)">u</text></g></g><g transform="translate(630 0)"><g><text transform="translate(15, 24)">b</text></g></g><g transform="translate(660 0)"><g><text transform="translate(15, 24)">l</text></g></g><g transform="translate(690 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(750 0)"><g><text transform="translate(15, 24)">q</text></g></g><g transform="translate(780 0)"><g><text transform="translate(15, 24)">u</text></g></g><g transform="translate(810 0)"><g><text transform="translate(15, 24)">o</text></g></g><g transform="translate(840 0)"><g><text transform="translate(15, 24)">t</text></g></g><g transform="translate(870 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(900 0)"><g><text transform="translate(15, 24)">s</text></g></g><g transform="translate(960 0)"><g><text transform="translate(15, 24)">i</text></g></g><g transform="translate(990 0)"><g><text transform="translate(15, 24)">s</text></g></g><g transform="translate(1050 0)"><g><text transform="translate(15, 24)">r</text></g></g><g transform="translate(1080 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(1110 0)"><g><text transform="translate(15, 24)">n</text></g></g><g transform="translate(1140 0)"><g><text transform="translate(15, 24)">d</text></g></g><g transform="translate(1170 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(1200 0)"><g><text transform="translate(15, 24)">r</text></g></g><g transform="translate(1230 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(1260 0)"><g><text transform="translate(15, 24)">d</text></g></g><g transform="translate(1320 0)"><g><text transform="translate(15, 24)">a</text></g></g><g transform="translate(1350 0)"><g><text transform="translate(15, 24)">s</text></g></g><g transform="translate(1410 0)"><g><text transform="translate(15, 24)">t</text></g></g><g transform="translate(1440 0)"><g><text transform="translate(15, 24)">e</text></g></g><g transform="translate(1470 0)"><g><text transform="translate(15, 24)">x</text></g></g><g transform="translate(1500 0)"><g><text transform="translate(15, 24)">t</text></g></g><g transform="translate(1530 0)"><g><text transform="translate(15, 24)">!</text></g></g></g></svg>

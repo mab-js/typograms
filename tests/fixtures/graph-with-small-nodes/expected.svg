@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="342" height="97.2" debug="false" viewBox="0 0 1140 324" class="debug"><style>
+.diagram {
+  display: block;
+}
+
+.diagram line, .diagram circle, .diagram rect {
+  stroke: black;
+}
+
+.diagram line {
+  stroke-width: 2;
+}
+
+.diagram circle {
+  r: 3.5;
+}
+
+.diagram rect {
+  width: 6px;
+  height: 6px;
+}
+
+.diagram text, .glyph, .debug text {
+  /** font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; **/
+  font-family: Iosevka Fixed, monospace;
+  font-size: 3em;
+  text-anchor: middle;
+  alignment-baseline: central;
+  white-space: pre;
+}
+
+.reserved {
+  fill: transparent;
+  white-space: pre;
+}
+
+.debug[debug="true"] .reserved {
+  fill: black;
+  opacity: 0.5;
+}
+
+.debug[debug="true"] line.grid {
+  stroke: black;
+  stroke-width: 0.2;
+  stroke-linecap: butt;
+  fill: black;
+  opacity: 1%;
+}
+
+polygon {
+  stroke-width: 0;
+}
+
+.debug[debug="true"] polygon.inner {
+  fill: black;
+  stroke: black;
+  opacity: 5%;
+}
+
+polygon {
+  stroke: black;
+  /** stroke-width: 0.2; **/
+  stroke-linecap: butt;
+  fill: black;
+}
+
+.debug[debug="true"] polygon,
+.debug[debug="true"] line.grid
+{
+  opacity: 10%;
+}
+
+.debug[debug="true"] polygon,
+.debug[debug="true"] path,
+.debug[debug="true"] circle
+{
+  opacity: 50%;
+}
+
+.debug[debug="true"] polygon {
+  fill: red;
+  stroke: red;
+}
+
+/**
+circle {
+  fill: black;
+}
+**/
+
+.debug[debug="true"] circle,
+.debug[debug="true"] path
+{
+  opacity: 50%;
+  fill: red;
+}
+
+.debug[debug="true"] circle {
+  stroke: red;
+}
+
+.debug[debug="true"] .inner {
+  stroke-width: 0.2;
+}
+
+line.part {
+  stroke-width: 6;
+  stroke-linecap: butt;
+  stroke: black;
+}
+
+.debug[debug="true"] line.part {
+  opacity: 50%;
+  stroke: red;
+}
+
+.debug[debug="true"] line.center {
+  stroke-width: 3;
+  stroke-linecap: butt;
+  opacity: 10%;
+  stroke: black;
+}
+
+text::selection {
+    fill: black;
+    background-color: #EEE;
+}
+  </style><g><g transform="translate(30 0)"><g><text transform="translate(15, 24)">A</text></g></g><g transform="translate(150 0)"><g><text transform="translate(15, 24)">1</text></g></g><g transform="translate(300 0)"><g><text transform="translate(15, 24)">2</text></g></g><g transform="translate(420 0)"><g><text transform="translate(15, 24)">4</text></g></g><g transform="translate(960 0)"><g><text transform="translate(15, 24)">8</text></g></g><g transform="translate(30 54)"><g><circle cx="0" cy="0" r="21" stroke="none" transform="translate(15, 27)"/><g><line x1="15" y1="27" x2="30" y2="27" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">*</text></g></g><g transform="translate(60 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(90 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(120 54)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(150 54)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g/><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(180 54)"><g><polygon points="0,0 42,18 0,36" transform="translate(48 9) translate(0 36) rotate(180)"/></g><g><text class="reserved" transform="translate(15, 24)">&lt;</text></g></g><g transform="translate(210 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(240 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(270 54)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(300 54)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g/><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(330 54)"><g><polygon points="0,0 42,18 0,36" transform="translate(48 9) translate(0 36) rotate(180)"/></g><g><text class="reserved" transform="translate(15, 24)">&lt;</text></g></g><g transform="translate(360 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(390 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(420 54)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(450 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(480 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(510 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(540 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(570 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(600 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(630 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(660 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(690 54)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(720 54)"><g><path d="&#xA;        M 0 24&#xA;        A 18 18, 0, 0, 1, 18 42&#xA;        L 18 54&#xA;        L 12 54&#xA;        L 12 42&#xA;        A 12 12, 0, 0, 0, 0 30        &#xA;        Z"/></g><g><text class="reserved" transform="translate(15, 24)">.</text></g></g><g transform="translate(960 54)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g/><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(300 108)"><g><polygon points="0,0 42,18 0,36" transform="translate(-3 42) rotate(-90)"/><g><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">^</text></g></g><g transform="translate(420 108)"><g><polygon points="0,0 42,18 0,36" transform="translate(-3 42) rotate(-90)"/><g><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">^</text></g></g><g transform="translate(720 108)"><g><g><line x1="15" y1="0" x2="15" y2="27" class="part"/><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">|</text></g></g><g transform="translate(960 108)"><g><polygon points="0,0 42,18 0,36" transform="translate(-3 42) rotate(-90)"/><g><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">^</text></g></g><g transform="translate(300 162)"><g><g><line x1="15" y1="0" x2="15" y2="27" class="part"/><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">|</text></g></g><g transform="translate(420 162)"><g><g><line x1="15" y1="0" x2="15" y2="27" class="part"/><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">|</text></g></g><g transform="translate(720 162)"><g><polygon points="0,0 42,18 0,36" transform="translate(33 18) rotate(90)"/><g><line x1="15" y1="0" x2="15" y2="27" class="part"/><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">v</text></g></g><g transform="translate(960 162)"><g><g><line x1="15" y1="0" x2="15" y2="27" class="part"/><line x1="15" y1="27" x2="15" y2="54" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">|</text></g></g><g transform="translate(300 216)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g><line x1="15" y1="0" x2="15" y2="27" class="part"/></g><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(330 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(48 9) translate(0 36) rotate(180)"/></g><g><text class="reserved" transform="translate(15, 24)">&lt;</text></g></g><g transform="translate(360 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(390 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(420 216)"><g><circle cx="0" cy="0" r="21" stroke="none" transform="translate(15, 27)"/><g><line x1="15" y1="0" x2="15" y2="27" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">*</text></g></g><g transform="translate(450 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(48 9) translate(0 36) rotate(180)"/></g><g><text class="reserved" transform="translate(15, 24)">&lt;</text></g></g><g transform="translate(480 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(510 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(540 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(570 216)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g><line x1="15" y1="27" x2="30" y2="27" class="part"/></g><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(600 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(630 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(660 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(690 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(720 216)"><g><circle cx="0" cy="0" r="21" stroke="none" transform="translate(15, 27)"/><g><line x1="15" y1="27" x2="30" y2="27" class="part"/></g></g><g><text class="reserved" transform="translate(15, 24)">*</text></g></g><g transform="translate(750 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(780 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(810 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(840 216)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g><line x1="15" y1="27" x2="30" y2="27" class="part"/></g><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(870 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(900 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(930 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(960 216)"><g><circle cx="0" cy="0" r="18" stroke-width="6" fill="none" stroke="black" transform="translate(15, 27)"/><g><line x1="15" y1="0" x2="15" y2="27" class="part"/></g><circle cx="0" cy="0" r="15" fill="white" opacity="100%" transform="translate(15, 27)"/></g><g><text class="reserved" transform="translate(15, 24)">o</text></g></g><g transform="translate(990 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(48 9) translate(0 36) rotate(180)"/></g><g><text class="reserved" transform="translate(15, 24)">&lt;</text></g></g><g transform="translate(1020 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(1050 216)"><g><line x1="15" y1="27" x2="30" y2="27" class="part"/><line x1="0" y1="27" x2="15" y2="27" class="part"/></g><g><text class="reserved" transform="translate(15, 24)">-</text></g></g><g transform="translate(1080 216)"><g><polygon points="0,0 42,18 0,36" transform="translate(-18 9)"/></g><g><text class="reserved" transform="translate(15, 24)">&gt;</text></g></g><g transform="translate(1110 216)"><g><circle cx="0" cy="0" r="21" stroke="none" transform="translate(15, 27)"/><g/></g><g><text class="reserved" transform="translate(15, 24)">*</text></g></g><g transform="translate(300 270)"><g><text transform="translate(15, 24)">3</text></g></g><g transform="translate(420 270)"><g><text transform="translate(15, 24)">B</text></g></g><g transform="translate(570 270)"><g><text transform="translate(15, 24)">5</text></g></g><g transform="translate(720 270)"><g><text transform="translate(15, 24)">C</text></g></g><g transform="translate(840 270)"><g><text transform="translate(15, 24)">6</text></g></g><g transform="translate(960 270)"><g><text transform="translate(15, 24)">7</text></g></g><g transform="translate(1110 270)"><g><text transform="translate(15, 24)">D</text></g></g></g></svg>

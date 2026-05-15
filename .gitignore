@@ -9,3 +9,6 @@ package-lock.json
 
 # Fork-private planning notes — kept local, not part of the repo history.
 planning/
+
+# Parity-harness failure artifacts: written next to each fixture on mismatch.
+tests/fixtures/*/actual.svg
