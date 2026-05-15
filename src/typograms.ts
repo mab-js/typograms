@@ -9,6 +9,21 @@
  * See LICENSE and NOTICE at the repository root.
  */
 
+/**
+ * Entry point for the typograms renderer. Composes three internal modules:
+ *
+ *   - `./grid` provides the {@link Diagram} grid model and the `around`
+ *     neighbor helper.
+ *   - `./primitives` exposes SVG construction helpers (`cross`, `text`,
+ *     `debugGrid`) and the `CELL_*` cell-geometry constants.
+ *   - `./glyphs` holds the per-character handler table and its aliases.
+ *
+ * Exposes `create()` as the default export and re-exports `Neighbors` and
+ * `GlyphHandler` for consumers that want to extend the dispatch table.
+ *
+ * @packageDocumentation
+ */
+
 // The renderer pipes numeric coordinates and boolean flags through
 // Element.setAttribute, relying on the DOM's implicit String() coercion. The
 // strict lib.dom signature accepts only strings, so widen it here rather than
@@ -73,53 +88,7 @@ function render(diagram: Diagram): SVGGElement {
   return result;
 }
 
-/**
- * Render a typogram source string to an SVG element.
- *
- * The first and last lines of `source` are dropped before rendering, matching
- * the upstream convention that lets authors leading-newline-pad their
- * `<script type="text/typogram">` blocks without affecting layout.
- *
- * @param source Multi-line ASCII-art diagram.
- * @param zoom Output scale multiplier; the IIFE bootstrap defaults this to 0.3.
- * @param debug When true, overlays the alignment grid and surfaces reserved
- *   characters in semi-transparent black.
- * @returns A detached `<svg>` element. Append it to a DOM target to display.
- */
-function create(source: string, zoom: number, debug: boolean): SVGElement {
-  const diagram: Diagram = source
-    .split("\n")
-    .map((line) => line.trimEnd().split(""));
-
-  diagram.shift();
-  diagram.splice(-1);
-
-  let width = 0;
-  const height = diagram.length;
-
-  for (let y = 0; y < diagram.length; y++) {
-    const row = diagram[y];
-    if (!row) continue;
-    for (let x = 0; x < row.length; x++) {
-      if (row.length > width) {
-        // Upstream parity quirk: indexes by x rather than y. Preserved
-        // because the snapshot fixtures encode the resulting widths.
-        width = diagram[x]?.length ?? width;
-      }
-    }
-  }
-
-  const svg = document.createElementNS(SVG_NS, "svg");
-  svg.setAttribute("width", width * CELL_W * zoom);
-  svg.setAttribute("height", height * CELL_H * zoom);
-  svg.setAttribute("debug", debug);
-  const padding = 0;
-
-  svg.setAttribute("viewBox", `${-padding} ${-padding} ${width * CELL_W + 2 * padding} ${height * CELL_H + 2 * padding}`);
-  svg.setAttribute("class", "debug");
-
-  const style = document.createElementNS(SVG_NS, "style");
-  style.innerHTML = `
+const STYLESHEET = `
 .diagram {
   display: block;
 }
@@ -247,6 +216,54 @@ text::selection {
     background-color: #EEE;
 }
   `;
+
+/**
+ * Render a typogram source string to an SVG element.
+ *
+ * The first and last lines of `source` are dropped before rendering, matching
+ * the upstream convention that lets authors leading-newline-pad their
+ * `<script type="text/typogram">` blocks without affecting layout.
+ *
+ * @param source Multi-line ASCII-art diagram.
+ * @param zoom Output scale multiplier; the IIFE bootstrap defaults this to 0.3.
+ * @param debug When true, overlays the alignment grid and surfaces reserved
+ *   characters in semi-transparent black.
+ * @returns A detached `<svg>` element. Append it to a DOM target to display.
+ */
+function create(source: string, zoom: number, debug: boolean): SVGElement {
+  const diagram: Diagram = source
+    .split("\n")
+    .map((line) => line.trimEnd().split(""));
+
+  diagram.shift();
+  diagram.splice(-1);
+
+  let width = 0;
+  const height = diagram.length;
+
+  for (let y = 0; y < diagram.length; y++) {
+    const row = diagram[y];
+    if (!row) continue;
+    for (let x = 0; x < row.length; x++) {
+      if (row.length > width) {
+        // Upstream parity quirk: indexes by x rather than y. Preserved
+        // because the snapshot fixtures encode the resulting widths.
+        width = diagram[x]?.length ?? width;
+      }
+    }
+  }
+
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("width", width * CELL_W * zoom);
+  svg.setAttribute("height", height * CELL_H * zoom);
+  svg.setAttribute("debug", debug);
+  const padding = 0;
+
+  svg.setAttribute("viewBox", `${-padding} ${-padding} ${width * CELL_W + 2 * padding} ${height * CELL_H + 2 * padding}`);
+  svg.setAttribute("class", "debug");
+
+  const style = document.createElementNS(SVG_NS, "style");
+  style.innerHTML = STYLESHEET;
 
   svg.appendChild(style);
   

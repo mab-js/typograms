@@ -14,3 +14,16 @@ the `upstream-archive` git tag.
 
 The rewrite is in progress; build instructions and a published package will
 land with a future 1.0 release.
+
+## Module map
+
+The TypeScript renderer is split across files under `src/`: `typograms.ts`
+is the entry point (parses source, drives the render loop, applies the
+embedded stylesheet, exposes `create()`); `grid.ts` holds the `Diagram`
+and `Neighbors` types and the `around` neighbor helper; `primitives.ts`
+defines the SVG construction primitives (`cross`, `text`, `debugGrid`)
+and the `CELL_*` cell-geometry constants; `glyphs.ts` holds the glyph
+dispatch table, the alias table, and per-character handlers (the bulk of
+the renderer's logic); `browser.ts` is the IIFE bootstrap that wires
+`create()` to `DOMContentLoaded`. Per-export TSDoc lives alongside each
+definition.
