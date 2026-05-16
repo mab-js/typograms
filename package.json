@@ -29,7 +29,7 @@
     "build": "tsup && cp dist/typograms.iife.js docs/typograms.js && cp NOTICE docs/NOTICE && cp LICENSE docs/LICENSE",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run tests/typograms.test.ts",
+    "test": "vitest run tests/parity/run.spec.ts",
     "test:parity": "vitest run tests/parity/run.spec.ts",
     "test:all": "vitest run",
     "capture": "tsx scripts/parity-capture.ts"
