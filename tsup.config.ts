@@ -30,4 +30,17 @@ export default defineConfig([
     minify: true,
     sourcemap: false,
   },
+  {
+    entry: { "typograms-cli": "src/cli.ts" },
+    format: ["esm"],
+    outDir: "dist",
+    outExtension: () => ({ js: ".mjs" }),
+    banner: { js: banner },
+    platform: "node",
+    target: "node22",
+    external: ["jsdom"],
+    shims: false,
+    minify: false,
+    sourcemap: false,
+  },
 ]);

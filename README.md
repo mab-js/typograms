@@ -72,6 +72,40 @@ dispatch table:
 import create, { type Neighbors, type GlyphHandler } from "typograms";
 ```
 
+## Use from the command line
+
+The package ships a `typograms` CLI that reads a typogram source file (or
+stdin) and writes the rendered SVG to stdout or `-o`:
+
+```
+typograms diagram.typo > diagram.svg
+cat diagram.typo | typograms --zoom 0.5 > diagram.svg
+typograms -g diagram.typo -o diagram-debug.svg
+```
+
+Options:
+
+- `-o`, `--output PATH` -- write to `PATH` instead of stdout.
+- `-z`, `--zoom NUMBER` -- output scale multiplier (default `0.3`).
+- `-g`, `--grid` -- overlay the alignment grid and surface reserved
+  characters in semi-transparent black.
+
+Without a positional argument, the CLI reads from stdin (unless stdin is a
+TTY, in which case usage is printed to stderr).
+
+Unlike the library `create()` function, the CLI renders the source as
+authored: a file with N visible lines renders to N rows. (`create()` itself
+drops the first and last line of its input -- a parity quirk inherited from
+the `<script type="text/typogram">` convention -- which the CLI neutralizes
+internally.)
+
+`.typo` is the recommended file extension by convention; the CLI accepts any
+filename. Running the CLI via `npx` against an unpublished fork release:
+
+```
+npx github:mab-js/typograms diagram.typo > diagram.svg
+```
+
 ## Embedding in MIT-licensed downstream repos
 
 Typograms is Apache 2.0. Apache-licensed files compose cleanly into
@@ -100,12 +134,14 @@ npm install
 npm run build
 ```
 
-The build emits three artifacts to `dist/`:
+The build emits four artifacts to `dist/`:
 
 - `typograms.mjs` -- ESM bundle (the `import` target).
 - `typograms.iife.js` -- IIFE bundle exposing a `typograms` global with a
   `create` member; also auto-bootstraps on `DOMContentLoaded`.
 - `typograms.d.ts` -- TypeScript declarations.
+- `typograms-cli.mjs` -- Node CLI (the `bin` target). Pulls in `jsdom`
+  at runtime to provide a DOM for the renderer.
 
 Additional scripts:
 
@@ -115,6 +151,11 @@ Additional scripts:
 - `npm run test:parity` -- the snapshot suite that pins behavior against
   the `upstream-archive` reference outputs.
 - `npm run test:all` -- both suites.
+
+To iterate on the CLI against your local checkout, run `npm link` from this
+repo after `npm run build`. That drops a `typograms` shim on your `PATH`
+pointing at `dist/typograms-cli.mjs`, so `typograms diagram.typo > out.svg`
+works from anywhere. `npm unlink -g typograms` removes it.
 
 Node 22 or newer.
 

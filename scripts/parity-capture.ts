@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { JSDOM } from "jsdom";
-import { renderFixture } from "../tests/parity/render.js";
+import { renderToString } from "../src/headless.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -108,11 +108,7 @@ function writeFixture(entry: Entry): void {
     JSON.stringify(meta, null, 2) + "\n"
   );
 
-  const svg = renderFixture({
-    source: entry.source,
-    zoom: entry.zoom,
-    debug: entry.debug,
-  });
+  const svg = renderToString(entry.source, entry.zoom, entry.debug);
   fs.writeFileSync(path.join(dir, "expected.svg"), svg);
 }
 
