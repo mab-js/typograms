@@ -26,7 +26,7 @@
     "FORK.md"
   ],
   "scripts": {
-    "build": "tsup && cp dist/typograms.iife.js docs/typograms.js",
+    "build": "tsup && cp dist/typograms.iife.js docs/typograms.js && cp NOTICE docs/NOTICE && cp LICENSE docs/LICENSE",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run tests/typograms.test.ts",
