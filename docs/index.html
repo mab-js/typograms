@@ -1,4 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <title>typograms (mab-js fork)</title>
   <script src="typograms.js"></script>
  
   <link href="google-sans.css" media="screen" rel="stylesheet" type="text/css">
@@ -80,8 +84,10 @@
  </style>
 </head>
 
+<body>
+
 <div class="header">
-  <div class="container"><a href="https://google.github.io/typograms/">Typograms</a></div>
+  <div class="container"><a href="https://mab-js.github.io/typograms/">typograms</a></div>
 </div>
 <div class="body">
 
@@ -114,14 +120,20 @@
       <li><a href="#scribbles">Scribbles</a></li>
     </ul>
 
-    <a href="#wip">Work in Progress</a>
+    <a href="#wip">Known limitations</a>
     <br><br><a href="#related">Related</a>
     <br><br><a href="#specification">Specification</a>
   </div>
   <main>
 
-    <a href="https://github.com/google/typograms/">https://github.com/google/typograms/</a>
-    
+    <p>This is the <a href="https://github.com/mab-js/typograms">mab-js fork</a>
+    of <a href="https://github.com/google/typograms">google/typograms</a>,
+    which Google archived on 2025-01-21. See
+    <a href="https://github.com/mab-js/typograms/blob/main/FORK.md">FORK.md</a>
+    for maintenance posture and versioning policy, and <a href="./NOTICE">NOTICE</a>
+    for lineage. The verbatim upstream snapshot is preserved at the
+    <code>upstream-archive</code> git tag.</p>
+
     <h1 id="overview">Overview</h1>
 
     <p>Typograms (typographic diagrams) is a lightweight image format (<code>text/typogram</code>) useful for defining simple diagrams in technical documentation.</p>
@@ -136,27 +148,42 @@
 
     <h1 id="installation">Installation</h1>
 
-    To get started, the easiest way to use typograms is to link from our CDN:
+    <p>The fork is unpublished on npm. Consumers pin a built artifact from a
+    tagged <a href="https://github.com/mab-js/typograms/releases">mab-js/typograms
+    release</a>: download <code>typograms.iife.js</code>, drop it next to your
+    HTML, and mark each diagram with <code>&lt;script type="text/typogram"&gt;</code>.
+    The bootstrap runs on <code>DOMContentLoaded</code>, walks every matching
+    block, and inserts the rendered <code>&lt;svg&gt;</code> immediately after it.</p>
 
     <pre>
       <code class="language-html">
 &lt;body&gt;
-  &lt;script src="https://google.github.io/typograms/typograms.js"&gt;&lt;/script&gt;
+  &lt;script src="typograms.iife.js"&gt;&lt;/script&gt;
   &lt;script type="text/typogram"&gt;
 +----+
-|    |---> My first diagram!
+|    |---&gt; My first diagram!
 +----+
   &lt;/script&gt;
 &lt;/body&gt;
       </code>
     </pre>
 
-    From there, you can <a href="https://github.com/samuelgoto/typograms">download</a> the library directly to serve yourself.
+    <p>Per-block attributes on the <code>&lt;script&gt;</code> tag:</p>
 
-    You can also use it as a command line tool or a node library:
+    <ul>
+      <li><code>zoom</code> -- output scale multiplier (default <code>0.3</code>).</li>
+      <li><code>grid</code> -- when present, overlays the alignment grid and
+      surfaces reserved characters in semi-transparent black. Useful while
+      authoring a diagram.</li>
+      <li><code>disabled</code> -- when present, the block is skipped.</li>
+    </ul>
 
-    https://github.com/google/typograms
-    
+    <p>An ESM bundle (<code>typograms.mjs</code>) is also published with each
+    release for module-style consumers. See the
+    <a href="https://github.com/mab-js/typograms#readme">README</a> for the
+    <code>import create from "typograms"</code> pattern and embedding guidance
+    for MIT-licensed downstream repos.</p>
+
     <h1 id="primitives">Primitives</h1>
 
     <p>Typograms are composed of primitives and connectors that combine them: pipes (<code>| - _ \ / : ~</code>), dots arrows (<code>> ^ * o # v < </code>) and Connectors (<code>+ . -</code>).</p>
@@ -657,11 +684,16 @@ Cpu.Qon :~~~~~~~~~~~~~~~~.-----------
     </script>   
 
 
-    <h1 id="wip">Work in Progress</h1>
+    <h1 id="wip">Known limitations (inherited from upstream)</h1>
 
-    <p>This is a list of constructions that are currently looking into supporting.</p>
+    <p>These constructions render with quirks present in the
+    <code>upstream-archive</code> parity baseline. Per the fork's frozen
+    feature set, they are not active work items. If a downstream consumer is
+    blocked by one, please <a href="https://github.com/mab-js/typograms/issues">file
+    an issue</a> describing the use case; per-item fixes would be a parity
+    break and need that justification before being taken on.</p>
 
-    <h2>UT8 Diagram Characters Are Off</h2>
+    <h2>UTF-8 diagram characters render off-grid</h2>
 
 <script type="text/typogram">
 ┌─────────────────────────────────┐       ┌─────────────────────────────────┐
@@ -754,6 +786,18 @@ customElements.define("typo-gram", class Typogram extends HTMLElement {
     <typo-gram>
     </typo-gram>
 
+    <footer style="margin-top: 4em; padding-top: 1em; border-top: 1px solid #ddd; font-size: 0.85em; color: #666; text-align: center;">
+      <p>typograms is licensed under the
+      <a href="./LICENSE">Apache License 2.0</a>.
+      Modifications &copy; 2026 Matthew Burton.
+      Original work &copy; 2017-2025 Google LLC
+      (<a href="https://github.com/google/typograms">google/typograms</a>,
+      archived 2025-01-21).</p>
+      <p><a href="./NOTICE">NOTICE</a>
+      &middot; <a href="./LICENSE">LICENSE</a>
+      &middot; <a href="https://github.com/mab-js/typograms">mab-js/typograms on GitHub</a></p>
+    </footer>
+
   </main>
 </div>
 
@@ -766,3 +810,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 </script>
+
+</body>
+</html>
