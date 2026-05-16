@@ -27,6 +27,18 @@ git checkout upstream-archive
 - **Pinned downstream consumption.** Downstream consumers pin a built artifact
   from a tagged release, not a CDN URL.
 
+## Versioning
+
+- **`1.x` releases.** Correctness fixes, dependency hygiene, build/test
+  infrastructure. No new diagram primitives and no breaking changes to the
+  `create(source, zoom, debug)` entry point.
+- **`2.0` releases.** Reserved for genuinely structural breaks: the IIFE
+  build target being dropped, a browser API the renderer relies on changing
+  incompatibly, or the entry-point signature needing to change. Not
+  anticipated under the frozen-feature-set posture above.
+- **`upstream-archive` tag.** Preserved indefinitely as the parity reference.
+  No scheduled removal at any version boundary; retained even past `2.0`.
+
 ## Decisions
 
 ### 2026-05-15: Discard in-flight upstream renderer rewrite
